@@ -1,0 +1,68 @@
+\documentclass[fontsize=4pt]{scrartcl}
+
+%
+% Original Page by LinuxMercedes
+%
+
+\usepackage[
+        nohead,
+        nofoot,
+        left=0.55in,
+        right=0.55in,
+        top=0.55in,
+        bottom=0.55in,
+]{geometry}
+
+\usepackage{amsmath}
+
+\usepackage{multicol}
+\setlength{\columnsep}{1pt}
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+\pagenumbering{gobble}
+
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=-2pt, itemindent=0pt, leftmargin=*}
+\setlist[enumerate]{itemsep=-2pt, itemindent=0pt, leftmargin=*}
+
+\usepackage[compact]{titlesec}
+\titlespacing{\section}{-1pt}{-1pt}{-1pt}
+\titlespacing{\subsection}{-1pt}{-1pt}{-1pt}
+
+\DeclareMathSizes{3pt}{3pt}{3pt}{3pt}
+
+\begin{document}
+
+\begin{multicols}{4}
+\section{Definitions}
+
+\parbox{\columnwidth}
+{
+  \begin{itemize}
+    \item \textbf{Analytical Solution}: using a formula to give an exact answer.
+    \item \textbf{Numerical Solution}: obtaining an approximation for the answer, 
+          such as a Taylor Series, to get a equation which can be solved with available
+          information.
+  \end{itemize}
+}
+
+\columnbreak
+
+\section{Algorithms}
+
+\section{MatLab Reference}
+
+  \begin{multicols}{3}
+    sqrt(x)
+    exp(x)
+    abs(x) 
+    log(x)
+    log10(x)
+    factorial(x)
+  \end{multicols}
+
+\end{multicols}
+\end{document}
+

@@ -52,7 +52,7 @@
         \item \textbf{True Error}: $E_t =$ True value - Approximation ($\pm$)
         \item \textbf{True \% Rel. Error}: $\epsilon_t = (\frac{\text{True value} - \text{Approximation}}{\text{True Value}})\cdot100\%$
         \item \textbf{Aprox. Rel. Error}: $\epsilon_a =  |\frac{\text{This Approx.} - \text{Last Approx}}{\text{This Approx.}}|\cdot100\%$
-        \item \textbf{Error Propigation}: 
+        \item \textbf{Error Propagation}: 
         \item \textbf{}: 
         \item \textbf{}: 
         \item \textbf{}: 
@@ -63,7 +63,7 @@
 
   \section{Algorithms}
     \subsection{General Iterative}
-      Computations are repeated until criteron is satisfied $|\epsilon_a| < \epsilon_s$. \\
+      Computations are repeated until criterion is satisfied $|\epsilon_a| < \epsilon_s$. \\
       If $n$ sig figs are requested: $\epsilon_s = \frac{10^{2-n}}{2}\%$ \\
     \subsection{Roots of Equations}
       \begin{itemize}
@@ -77,7 +77,7 @@
               \item Choose lower $x_l$ and upper $x_u$ guesses for the root so that the function changes sign over the
               interval. This can be checked by ensuring that $f(x_l)f(x_r) < 0$.
               \item Guess at the root, $x_r$, with $x_r = \frac{x_l + x_u}{2}$
-              \item Take the following substeps then return to step 2
+              \item Take the following substeps, then return to step 2
               \begin{enumerate}
                 \item $f(x_l)f(x_r) < 0$, $x_u = x_r$
                 \item $f(x_l)f(x_r) > 0$, $x_l = x_r$
@@ -85,7 +85,7 @@
               \end{enumerate}
           \end{enumerate}
           \item This method is easy, always finds a root, and number of iterations required can be computed.
-          \item However, this method is slow, needs good inital guesses, and doesn't account for if $f(x_l)$
+          \item However, this method is slow, needs good initial guesses, and doesn't account for if $f(x_l)$
             is closer to 0, it is likely that the root is closer to $x_l$.
         \end{itemize}
         \item \textbf{False-Position Method}: A solution can be approximated for any given $f(x)$ between $x_u$
@@ -95,7 +95,7 @@
         \item \textbf{Simple Fixed-point}: With the function arranged with x on the LHS, ie $x = 1+\frac{2}{x}$ or
           $x = \sqrt{x+2}$ where now $g(x) = x$, $x_k = g(x_{k-1})$ and $x_0$ is given. Iterate through solving
           for those points until the x value is the nearest to zero.
-        \item \textbf{Newton-Raphson}: Most widly used formula for locating roots. Is equivilent to creating a 
+        \item \textbf{Newton-Raphson}: Most widely used formula for locating roots. Is equivalent to creating a 
         function that is tangent to the point given.
           \begin{itemize}
             \item $x_{i+1} = x_i - \frac{f(x_i)}{f'(x_i)}$

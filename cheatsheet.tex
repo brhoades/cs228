@@ -31,6 +31,8 @@
 \titlespacing{\section}{-1pt}{-1pt}{-1pt}
 \titlespacing{\subsection}{-1pt}{-1pt}{-1pt}
 
+\usepackage{listings}
+
 %was 3 3 3 3
 \DeclareMathSizes{5pt}{4pt}{3pt}{3pt}
 
@@ -58,9 +60,9 @@
       
   \section{Algorithms}
     \subsection{General Iterative}
-      Computations are repeated until criterion is satisfied $|\epsilon_a| < \epsilon_s$. \\
+      Computations can be repeated until criterion is satisfied $|\epsilon_a| < \epsilon_s$. \\
       If $n$ sig figs are requested: $\epsilon_s = \frac{10^{2-n}}{2}\%$ \\
-    \subsection{Roots of Equations}
+    \subsection{Roots of One Equation}
       \begin{itemize}
        \item \textbf{Graphical Approach}: Looking at a graph to approximate where the equation is hitting the x axis. Give 
           something like ``two distinct roots between x=4.3 and x=4.2.''
@@ -105,7 +107,14 @@
             \item $x_{i+1} = x_i - f(x_i)\frac{x_i-x_{i-1}}{f(x_i)-f(x_{i-1})}$
             \item Requires two initial estimates of $x_0 x_1$, but is NOT bracketing.
           \end{itemize}
+        \item \textbf{Modified Secant Method}: Uses a small perturbation fraction $\delta$ instead of a derivative. \\
+          $x_{i+1} = x_i - f(x_i)\frac{\delta x_i}{f(x_i+\delta x_i-f(x_i)}$
       \end{itemize}
+    \subsection{Systems of Equations}
+      \begin{itemize}
+       \item \textbf{Determinants/Cramer's Rule}: 
+      \end{itemize}
+
 
   \columnbreak
 
@@ -131,6 +140,34 @@
       rem(x,y)\%
       ceil(x)
       sprintf(txt)
+    \subsection{Matlab Examples}
+      \begin{itemize}
+        \item Bisection function in Matlab. Passes f(x), lower x, upper x, and a error / upper i.
+        \lstset{language=Matlab}
+        \begin{lstlisting}
+% A sample call:
+%bisection2(@func1, -2, 4, 0.001, 500)
+function root = bisection(fx, xl, xu, es, imax);
+
+if fx(xl)*fx(xu) > 0 % if guesses do not bracket
+    disp('no bracket')
+    return
+end
+
+for i=1:1:imax
+   xr=(xu+xl)/2
+   ea = abs((xu-xl)/xl);
+   test= fx(xl)*fx(xr);
+   if test < 0
+       xu=xr;
+   end
+   if test > 0 xl=xr; end
+   if test == 0 ea=0; end
+   if ea < es break; end
+end
+%root = xr, it# = i, fx is original function
+        \end{lstlisting}%
+      \end{itemize}%
     \subsection{Math}
       \begin{itemize}
       \item \textbf{Taylor Series}: Provides a means to predict the value of a function at one point in terms of

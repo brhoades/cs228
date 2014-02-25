@@ -1,4 +1,4 @@
-\documentclass[fontsize=5pt]{scrartcl}
+\documentclass[fontsize=9pt]{scrartcl}
 
 %
 % Original Page by LinuxMercedes
@@ -154,13 +154,16 @@ c = [ 1 2
     \subsection{Matlab Examples}
       \begin{itemize}
         \item Bisection function in Matlab. Passes f(x), lower x, upper x, and a error / upper i.
-        \lstset{language=Matlab}
+          \lstset{language=Matlab,basicstyle=\footnotesize,breaklines=true}
         \begin{lstlisting}
 % A sample call:
-%bisection2(@func1, -2, 4, 0.001, 500)
-function root = bisection(fx, xl, xu, es, imax);
+%bisection2(@func1, -2, 4,
+% 0.001, 500)
+function root = bisection(fx, xl,
+  xu, es, imax);
 
-if fx(xl)*fx(xu) > 0 % if guesses do not bracket
+if fx(xl)*fx(xu) > 0 % if 
+% guesses do not bracket
     disp('no bracket')
     return
 end
@@ -179,7 +182,7 @@ end
 %root = xr, it# = i, fx is original function
         \end{lstlisting}
         \item Newton's Method example code
-          \lstset{language=Matlab}
+          \lstset{language=Matlab,basicstyle=\footnotesize,breaklines=true}
           \begin{lstlisting}
 function root = newtraph(func,dfunc,xr,es,maxit)
 % Newton-Raphson method to find the root of a function
@@ -212,7 +215,12 @@ fprintf(' How close is f(root) to zero?  f(root)= %f  \n', func(xr));
       \item \textbf{Taylor Series}: Provides a means to predict the value of a function at one point in terms of
              the function value and its derivatives at another. The function must be infinitely differentiable
              at f(a). An infinite number of terms yields an exact result for $x=a$.
-        $f(x), x=a$: $\sum_{n=0} ^ {\infty} \frac {f^{(n)}(a)}{n!} \, (x-a)^{n}$
+        \begin{itemize}
+          \item $f(x), x=a$: $\sum_{n=0} ^ {\infty} \frac {f^{(n)}(a)}{n!} \, (x-a)^{n} + R_n$
+          \item Remainder, h is step size and $\epsilon$ is the value which makes the final
+          equation exact for the nth derivative: \\ $R_n = \frac{f^{n+1}(\epsilon)}{(n+1)!} (x_{i+1}-x_i)^{n+1}h_{n+1}$ \\
+          
+        \end{itemize}
       \item \textbf{Matrix Multiplication}: Matrix multiplication is done by going right on the left matrix while going
         down on the right. After a row on the left is done, move to the next and repeat with the next column. Matrices'
         sizes are denoted by c x r, and for two matrices to multiply together, $r_1 = c_2$. Examples:

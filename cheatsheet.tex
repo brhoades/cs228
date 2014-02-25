@@ -46,8 +46,6 @@
     \end{itemize}
 
   \section{Formulas}
-    \parbox{\columnwidth}
-    {
       \begin{itemize}
         \item \textbf{True Error}: $E_t =$ True value - Approximation ($\pm$)
         \item \textbf{True \% Rel. Error}: $\epsilon_t = (\frac{\text{True value} - \text{Approximation}}{\text{True Value}})\cdot100\%$
@@ -57,10 +55,7 @@
         \item \textbf{}: 
         \item \textbf{}: 
       \end{itemize}
-    }
-  
-  \columnbreak
-
+      
   \section{Algorithms}
     \subsection{General Iterative}
       Computations are repeated until criterion is satisfied $|\epsilon_a| < \epsilon_s$. \\
@@ -99,8 +94,17 @@
         function that is tangent to the point given.
           \begin{itemize}
             \item $x_{i+1} = x_i - \frac{f(x_i)}{f'(x_i)}$
+            \item Most convenient when the derivative can be evaluated analytically
+            \item Rate of convergence is quadratic/proportional to the square of the previous $E_{i+1} = O(E_{i^2})$
+            \item Will not always converge, there is no convergence criterion, and it may converge very slowly.
           \end{itemize}
-
+        \item \textbf{Secant Method}: Used often when the derivative cannot be determined analytically, and needs
+          to be done numerically. Same as Newton-Raphson but with an expanded derivative, and carries the same
+          properties.
+          \begin{itemize}
+            \item $x_{i+1} = x_i - f(x_i)\frac{x_i-x_{i-1}}{f(x_i)-f(x_{i-1})}$
+            \item Requires two initial estimates of $x_0 x_1$, but is NOT bracketing.
+          \end{itemize}
       \end{itemize}
 
   \columnbreak

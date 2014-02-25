@@ -16,7 +16,7 @@
 \usepackage{amsmath}
 
 \usepackage{multicol}
-\setlength{\columnsep}{1pt}
+\setlength{\columnsep}{5pt}
 
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
@@ -31,38 +31,111 @@
 \titlespacing{\section}{-1pt}{-1pt}{-1pt}
 \titlespacing{\subsection}{-1pt}{-1pt}{-1pt}
 
-\DeclareMathSizes{3pt}{3pt}{3pt}{3pt}
+%was 3 3 3 3
+\DeclareMathSizes{5pt}{4pt}{3pt}{3pt}
 
 \begin{document}
 
 \begin{multicols}{4}
-\section{Definitions}
+  \section{Definitions}
+    \begin{itemize}
+      \item \textbf{Analytical Solution}: using a formula to give an exact answer.
+      \item \textbf{Numerical Solution}: obtaining an approximation for the answer, 
+            ie with a Taylor Series, to get a equation which can be solved with available
+            information.
+    \end{itemize}
 
-\parbox{\columnwidth}
-{
-  \begin{itemize}
-    \item \textbf{Analytical Solution}: using a formula to give an exact answer.
-    \item \textbf{Numerical Solution}: obtaining an approximation for the answer, 
-          such as a Taylor Series, to get a equation which can be solved with available
-          information.
-  \end{itemize}
-}
+  \section{Formulas}
+    \parbox{\columnwidth}
+    {
+      \begin{itemize}
+        \item \textbf{True Error}: $E_t =$ True value - Approximation ($\pm$)
+        \item \textbf{True \% Rel. Error}: $\epsilon_t = (\frac{\text{True value} - \text{Approximation}}{\text{True Value}})\cdot100\%$
+        \item \textbf{Aprox. Rel. Error}: $\epsilon_a =  |\frac{\text{This Approx.} - \text{Last Approx}}{\text{This Approx.}}|\cdot100\%$
+        \item \textbf{Error Propigation}: 
+        \item \textbf{}: 
+        \item \textbf{}: 
+        \item \textbf{}: 
+      \end{itemize}
+    }
+  
+  \columnbreak
 
-\columnbreak
+  \section{Algorithms}
+    \subsection{General Iterative}
+      Computations are repeated until criteron is satisfied $|\epsilon_a| < \epsilon_s$. \\
+      If $n$ sig figs are requested: $\epsilon_s = \frac{10^{2-n}}{2}\%$ \\
+    \subsection{Roots of Equations}
+      \begin{itemize}
+       \item \textbf{Graphical Approach}: Looking at a graph to approximate where the equation is hitting the x axis. Give 
+          something like ``two distinct roots between x=4.3 and x=4.2.''
+       \item \textbf{Bisection Method}: Cut a graph into two repeatedly, then look for changes in sign.
+        \begin{itemize}
+          \item Iterations required: $k \geq \lceil log_2|\frac{L_0}{x_r \cdot \epsilon_{tol}}|\rceil$
+          \item Steps:
+          \begin{enumerate}
+              \item Choose lower $x_l$ and upper $x_u$ guesses for the root so that the function changes sign over the
+              interval. This can be checked by ensuring that $f(x_l)f(x_r) < 0$.
+              \item Guess at the root, $x_r$, with $x_r = \frac{x_l + x_u}{2}$
+              \item Take the following substeps then return to step 2
+              \begin{enumerate}
+                \item $f(x_l)f(x_r) < 0$, $x_u = x_r$
+                \item $f(x_l)f(x_r) > 0$, $x_l = x_r$
+                \item $f(x_l)f(x_r) = 0$, root is $x_r$
+              \end{enumerate}
+          \end{enumerate}
+          \item This method is easy, always finds a root, and number of iterations required can be computed.
+          \item However, this method is slow, needs good inital guesses, and doesn't account for if $f(x_l)$
+            is closer to 0, it is likely that the root is closer to $x_l$.
+        \end{itemize}
+        \item \textbf{False-Position Method}: A solution can be approximated for any given $f(x)$ between $x_u$
+          and $x_l$ via linear interpolation. Looking for an $x_r \ni l(x_r) = 0$, $l(x)$ is the linear
+          approx. between for the bounds above.
+          $x_r = \frac{x_lf_u-x_uf_l}{f_u-f_l}$
+        \item \textbf{Simple Fixed-point}: With the function arranged with x on the LHS, ie $x = 1+\frac{2}{x}$ or
+          $x = \sqrt{x+2}$ where now $g(x) = x$, $x_k = g(x_{k-1})$ and $x_0$ is given. Iterate through solving
+          for those points until the x value is the nearest to zero.
+        \item \textbf{Newton-Raphson}: Most widly used formula for locating roots. Is equivilent to creating a 
+        function that is tangent to the point given.
+          \begin{itemize}
+            \item $x_{i+1} = x_i - \frac{f(x_i)}{f'(x_i)}$
+          \end{itemize}
 
-\section{Algorithms}
+      \end{itemize}
 
-\section{MatLab Reference}
+  \columnbreak
 
-  \begin{multicols}{3}
-    sqrt(x)
-    exp(x)
-    abs(x) 
-    log(x)
-    log10(x)
-    factorial(x)
+  \section{Reference}
+    \subsection{Matlab}
+      sqrt(x)
+      exp(x)
+      abs(x) 
+      log(x)
+      log10(x)
+      factorial(x)
+      sin(x)
+      sind(x)
+      cos(x)
+      cosd(x)
+      tan(x)
+      tand(x)
+      cot(x)
+      cotd(x)
+      round(x)
+      fix(x)
+      floor(x)
+      rem(x,y)\%
+      ceil(x)
+      sprintf(txt)
+    \subsection{Math}
+      \begin{itemize}
+      \item \textbf{Taylor Series}: Provides a means to predict the value of a function at one point in terms of
+             the function value and its derivatives at another. The function must be infinitely differentiable
+             at f(a). An infinite number of terms yields an exact result for $x=a$.
+        \begin{itemize}
+          \item $f(x), x=a$: $\sum_{n=0} ^ {\infty} \frac {f^{(n)}(a)}{n!} \, (x-a)^{n}$
+        \end{itemize}
+      \end{itemize}
   \end{multicols}
-
-\end{multicols}
 \end{document}
 

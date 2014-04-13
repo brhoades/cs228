@@ -13,7 +13,9 @@
         bottom=0.55in,
 ]{geometry}
 
-\usepackage{amsmath}
+\usepackage{amsmath,scalefnt}
+
+\renewcommand*{\arraystretch}{.5}
 
 \usepackage{multicol}
 \setlength{\columnsep}{5pt}
@@ -33,8 +35,20 @@
 
 \usepackage{listings}
 
+%Y hoy yo reza que no empleo ni alma pobre encontrará esta magica negra.
+%This is a custom 'tight' matrix for this cheatsheet. It's ugly.
+\newenvironment{tmatrix}%
+{ 
+  \scalefont{.5}
+  \setlength{\tabcolsep}{5pt}
+  $\left[\hspace{-3.5pt}\begin{array}{c@{\hspace{1pt}}@{\hspace{1pt}}c@{\hspace{1pt}}c@{\hspace{1pt}}|@\hspace{0pt}c}
+}%
+{
+   \end{array}\hspace{-3.5pt}\right]$
+}
+
 %was 3 3 3 3
-\DeclareMathSizes{4pt}{4pt}{3pt}{3pt}
+\DeclareMathSizes{3pt}{3pt}{3pt}{3pt}
 
 \begin{document}
 
@@ -47,6 +61,41 @@
             information.
     \end{itemize}
 
+  \section{Problems}
+    \begin{enumerate}
+      \item \textbf{Gaussian Elimination with Partial Pivoting}
+        \begin{itemize}
+          \item \textbf{Gauss Elimination}: consists of two phases: forward elimination, back substitution. 
+            Utilizes a matrix to do this.
+            \subitem \textbf{Forward elimination}: reduces a matrix like so, \textbf{in this order}: \\
+              \begin{tmatrix}
+                1 & 3 & 1 & 9 \\
+                \mathbf{1} & 1 & -1 & 1 \\
+                3 & 11 & 5 & 35 \\
+              \end{tmatrix} \hspace{-2pt}$\Rightarrow$\hspace{-4pt}%
+              \begin{tmatrix}
+              1 & 3 & 1 & 9 \\
+              0 & -2 & -2 & -8 \\
+              \mathbf{0} & 2 & 2 & 8
+              \end{tmatrix} \hspace{-2pt}$\Rightarrow$\hspace{-4pt}%
+              \begin{tmatrix}
+              1 & 3 & 1 & 9 \\
+              0 & -2 & -2 & -8 \\
+              0 & \mathbf{0} & 0 & 0
+              \end{tmatrix}\\
+            \subitem It does this using multiples of other rows, added on to the row you are modifying. 
+              The diagonal does not matter in this method, and can be any value. The objective is to make
+              the bottom triangle zeros, which turns this into the U portion of the A=L\textbf{U}.\\
+              
+            \subitem \textbf{Back substitution}: takes the lowest segment of the matrix, here $0x+0y+0z=0$,
+            solves, and plugs it into the next larger portion.
+      \end{itemize}
+        
+      \item \textbf{Numerical Solution}: obtaining an approximation for the answer, 
+            ie with a Taylor Series, to get a equation which can be solved with available
+            information.
+    \end{itemize}
+    
   \section{Formulas}
       \begin{itemize}
         \item \textbf{True Error}: $E_t =$ True value - Approximation ($\pm$)
@@ -55,57 +104,7 @@
       \end{itemize}
       
   \section{Algorithms}
-    \subsection{General Iterative}
-      Computations can be repeated until criterion is satisfied $|\epsilon_a| < \epsilon_s$. \\
-      If $n$ sig figs are requested: $\epsilon_s = \frac{10^{2-n}}{2}\%$ \\
-    \subsection{Roots of One Equation}
-      \begin{itemize}
-       \item \textbf{Graphical Approach}: Looking at a graph to approximate where the equation is hitting the x axis. Give 
-          something like ``two distinct roots between x=4.3 and x=4.2.''
-       \item \textbf{Bisection Method}: Cut a graph into two repeatedly, then look for changes in sign.
-        \begin{itemize}
-          \item Iterations required: $k \geq \lceil log_2|\frac{L_0}{x_r \cdot \epsilon_{tol}}|\rceil$
-          \item Steps:
-          \begin{enumerate}
-              \item Choose lower $x_l$ and upper $x_u$ guesses for the root so that the function changes sign over the
-              interval. This can be checked by ensuring that $f(x_l)f(x_r) < 0$.
-              \item Guess at the root, $x_r$, with $x_r = \frac{x_l + x_u}{2}$
-              \item Take the following substeps, then return to step 2
-              \begin{enumerate}
-                \item $f(x_l)f(x_r) < 0$, $x_u = x_r$
-                \item $f(x_l)f(x_r) > 0$, $x_l = x_r$
-                \item $f(x_l)f(x_r) = 0$, root is $x_r$
-              \end{enumerate}
-          \end{enumerate}
-          \item This method is easy, always finds a root, and number of iterations required can be computed.
-          \item However, this method is slow, needs good initial guesses, and doesn't account for if $f(x_l)$
-            is closer to 0, it is likely that the root is closer to $x_l$.
-        \end{itemize}
-        \item \textbf{False-Position Method}: A solution can be approximated for any given $f(x)$ between $x_u$
-          and $x_l$ via linear interpolation. Looking for an $x_r \ni l(x_r) = 0$, $l(x)$ is the linear
-          approx. between for the bounds above.
-          $x_r = \frac{x_lf_u-x_uf_l}{f_u-f_l}$
-        \item \textbf{Simple Fixed-point}: With the function arranged with x on the LHS, ie $x = 1+\frac{2}{x}$ or
-          $x = \sqrt{x+2}$ where now $g(x) = x$, $x_k = g(x_{k-1})$ and $x_0$ is given. Iterate through solving
-          for those points until the x value is the nearest to zero.
-        \item \textbf{Newton-Raphson}: Most widely used formula for locating roots. Is equivalent to creating a 
-        function that is tangent to the point given.
-          \begin{itemize}
-            \item $x_{i+1} = x_i - \frac{f(x_i)}{f'(x_i)}$
-            \item Most convenient when the derivative can be evaluated analytically
-            \item Rate of convergence is quadratic/proportional to the square of the previous $E_{i+1} = O(E_{i^2})$
-            \item Will not always converge, there is no convergence criterion, and it may converge very slowly.
-          \end{itemize}
-        \item \textbf{Secant Method}: Used often when the derivative cannot be determined analytically, and needs
-          to be done numerically. Same as Newton-Raphson but with an expanded derivative, and carries the same
-          properties.
-          \begin{itemize}
-            \item $x_{i+1} = x_i - f(x_i)\frac{x_i-x_{i-1}}{f(x_i)-f(x_{i-1})}$
-            \item Requires two initial estimates of $x_0 x_1$, but is NOT bracketing.
-          \end{itemize}
-        \item \textbf{Modified Secant Method}: Uses a small perturbation fraction $\delta$ instead of a derivative. \\
-          $x_{i+1} = x_i - f(x_i)\frac{\delta x_i}{f(x_i+\delta x_i-f(x_i)}$
-      \end{itemize}
+    
       
   \section{Reference}
     \subsection{Matlab}

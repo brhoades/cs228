@@ -103,7 +103,7 @@
               1 & 3 & 1 & 9 \\
               0 & -2 & -2 & -8 \\
               0 & \mathbf{0} & 0 & 0
-              \end{tmatrix}\\
+              \end{tmatrix}%
             \vspace{-2pt}\\
             It does this using multiples of other rows, added on to the row you are modifying. 
             The diagonal does not matter in this method, and can be any value. The objective is to make
@@ -145,14 +145,33 @@
             \item Perform Gaussian Elimination up to the point where you begin back substitution. Take this resultant matrix,
             $U$ (for upper). While performing the Gaussian elimination use the shortcut method for determining L. Start with a partial
             L: \\
-            $L = $
+            $L=$
             \begin{tmatrix3}
              $ 1 & 0 & 0$ \\
              $ ? & 1 & 1$ \\ 
              $ ? & ? & 1$ \\
-            \end{tmatrix3}
+            \end{tmatrix3}%
+            \vline%
+            $U= 
+            \begin{tmatrix3}
+              1 & 1  & -1 \\
+              0 & -3 & 4  \\
+              2 & 3  & 1 
+            \end{tmatrix3}%
+            \hspace{2pt} $ -R_1+R_2\rightarrow R_1$
 
-            \item While transforming 
+            $L=$ %
+            \begin{tmatrix3}
+             $ 1 & 0 & 0$ \\
+             $ -1& 1 & 1$ \\ 
+             $ ? & ? & 1$ \\
+            \end{tmatrix3}%
+            \vline \hspace{2pt}%
+            \begin{tmax
+            
+            
+            
+            \item While transforming, record the reciprocal of the constant multiplied by into the spot turning to 0.
           
 
             

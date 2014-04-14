@@ -59,8 +59,6 @@
 
 \newenvironment{tmatrix1}%
 { 
-  %\scalefont{.5}
-  %\setlength{\tabcolsep}{5pt}
   $\left[\hspace{-3.5pt}\begin{array}{c@{\hspace{3pt}}}
 }%
 {
@@ -119,7 +117,9 @@
       \end{itemize}
           
       \item \textbf{LU Decomposition \underline{28pts}}: LU Decomposition mirrors the actions on the the main matrix
-          to another, L, which can then be multiplied by U to get A. To summarize the process: Let $A=LU$ where A is the original matrix and substitute into $AX=B$. 
+          to another, L, which can then be multiplied by U to get A. LU Decomp. is typically used as it has fewer multiplication 
+          and division operations and is thus often faster for computers.
+          To summarize the process: Let $A=LU$ where A is the original matrix and substitute into $AX=B$. 
               This yields $LUX=B$... So solve for $X$ to get the answer
              and you get $UX= $ for your first equation, followed by $LY=B$ and $UX=Y$. Here is an example form of an equation translated to $AX=B$: \\
                $x_1+x_2-x_3=4 \\
@@ -142,38 +142,108 @@
               \end{tmatrix1}
 
           \begin{enumerate}
+            \thickmuskip=0mu
             \item Perform Gaussian Elimination up to the point where you begin back substitution. Take this resultant matrix,
             $U$ (for upper). While performing the Gaussian elimination use the shortcut method for determining L. Start with a partial
             L: \\
+            
+            %%%%%%%%%%
             $L=$
             \begin{tmatrix3}
-             $ 1 & 0 & 0$ \\
-             $ ? & 1 & 1$ \\ 
-             $ ? & ? & 1$ \\
+              1 & 0 & 0 \\
+              ? & 1 & 1 \\ 
+              ? & ? & 1 \\
             \end{tmatrix3}%
-            \vline%
-            $U= 
+            \vline\hspace{2pt}%
+            $U=$
+            \begin{tmatrix3}
+              1 & 1  & -1 \\
+              1 & -2 & 3  \\
+              2 & 3  & 1 \\  
+            \end{tmatrix3} \\
+%%%%%%%%%%%%%%%%%%%%%%%%
+            $L=$ %
+            \begin{tmatrix3}
+             1 & 0 & 0 \\
+             \textbf{1} & 1 & 0 \\ 
+             ? & ? & 1 \\
+            \end{tmatrix3}%
+            \vline\hspace{2pt}%
+            $U=$
+            \begin{tmatrix3}
+              1 & 1  & -1 \\
+              \textbf{0} & -3 & 4  \\
+              2 & 3  & 1 
+            \end{tmatrix3}%
+             $-R_1+R_2\rightarrow R_2$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%
+            $L=$ %
+            \begin{tmatrix3}
+             1 & 0 & 0 \\
+             1 & 1 & 0 \\ 
+             \mathbf{2} & ? & 1 \\
+            \end{tmatrix3}%
+            \vline\hspace{2pt}%
+            $U=$
             \begin{tmatrix3}
               1 & 1  & -1 \\
               0 & -3 & 4  \\
-              2 & 3  & 1 
+              \mathbf{0} & 1  & 3 
             \end{tmatrix3}%
-            \hspace{2pt} $ -R_1+R_2\rightarrow R_1$
-
+             $-2R_1+R_3\rightarrow R_3$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%
             $L=$ %
             \begin{tmatrix3}
-             $ 1 & 0 & 0$ \\
-             $ -1& 1 & 1$ \\ 
-             $ ? & ? & 1$ \\
+             1 & 0 & 0 \\
+             1 & 1 & 0 \\ 
+             2 & \mathbf{\frac{1}{3}} & 1 \\
             \end{tmatrix3}%
-            \vline \hspace{2pt}%
-            \begin{tmax
-            
-            
-            
-            \item While transforming, record the reciprocal of the constant multiplied by into the spot turning to 0.
-          
-
+            \vline\hspace{2pt}%
+            $U=$
+            \begin{tmatrix3}
+              1 & 1  & -1 \\
+              0 & -3 & 4  \\
+              0 & 0  & \mathbf{\frac{13}{3}} 
+            \end{tmatrix3}%
+             $\frac{1}{3}R_2+R_3\rightarrow R_3$ \\
+             
+           \item While transforming U, record the opposite of the constant multiplied by, into the spot turning to 0 on L (bolded).
+                 Now resetup the $LY=B$ equation and solve for $y_1, y_2, y_3$ using forward substitution. \\
+              \begin{tmatrix3}
+                1 & 0 & 0 \\
+                1 & 1 & 0 \\ 
+                2 & \frac{1}{3} & 1 \\
+              \end{tmatrix3}%
+              \begin{tmatrix1}
+                $y_1\\
+                y_2\\
+                y_3$
+              \end{tmatrix1}%
+              $=$%
+              \begin{tmatrix1}
+                $4\\
+                -6\\
+                7$
+              \end{tmatrix1}\Rightarrow%
+              $y_1=4,y_2=-10, y_3=-\frac{13}{3}$
+              
+            \item Use these values to setup a new matrix to plug into $UX=Y$ and solve the problem with back substitution.\\
+              \begin{tmatrix3}
+                1 & 1  & -1 \\
+                0 & -3 & 4  \\
+                0 & 0  & \mathbf{\frac{13}{3}} 
+              \end{tmatrix3}%
+              \begin{tmatrix}
+                $x_1\\
+                x_2\\
+                x_3\\$
+              \end{tmatrix}%
+              $=$%
+              \begin{tmatrix1}
+                $4\\
+                 -10\\
+                 -\frac{13}{3}\\$
+              \end{tmatrix1}\\
             
           \end{enumerate}
 

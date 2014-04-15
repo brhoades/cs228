@@ -233,19 +233,59 @@
                 0 & -3 & 4  \\
                 0 & 0  & \mathbf{\frac{13}{3}} 
               \end{tmatrix3}%
-              \begin{tmatrix}
+              \begin{tmatrix1}
                 x_1\\
                 x_2\\
                 x_3\\
-              \end{tmatrix}%
+              \end{tmatrix1}%
               $=$%
               \begin{tmatrix1}
                 4\\
                  -10\\
                  -\frac{13}{3}\\
               \end{tmatrix1}\\
-            
           \end{enumerate}
+          
+          \item \textbf{Matrix Inversion (LU Decomp Style)}: Solve using a method after LU Decomp. Use $LD=I$ where I is a 3x1 
+          chunk of an identity matrix. D is then plugged into $UX=D$ and the resultant X solution is the 3x1 chunk of your inverse matrix.
+          
+          \begin{enumerate}
+          
+          \item Plug your lower matrix with some d variables and set it equal to a chunk of your identity matrix (do this 3x with different
+                chunks). Solve for each $d$. \\
+            \begin{tmatrix3}
+              1 & 0 & 0 \\
+              1 & 1 & 0 \\ 
+              2 & \frac{1}{3} & 1 \\
+            \end{tmatrix3}%
+            \begin{tmatrix1}
+              d_1 \\
+              d_2 \\ 
+              d_3 \\
+            \end{tmatrix1}$=$%
+            \begin{tmatrix1}
+              1 \\
+              0 \\
+              0
+            \end{tmatrix1}
+          
+          \item Next plug those D's into a $UX=D$ equation, the resultant X's are chunks of your inverse matrix. \\
+            \begin{tmatrix3}
+              1 & 1  & -1 \\
+              0 & -3 & 4  \\
+              0 & 0  & \frac{13}{3}         
+            \end{tmatrix3}%
+            \begin{tmatrix1}
+              x_1 \\
+              x_2 \\ 
+              x_3 \\
+            \end{tmatrix1}$=$%
+            \begin{tmatrix1}
+              d_1 \\
+              d_2 \\ 
+              d_3 \\
+            \end{tmatrix1}            
+            
 
     \end{enumerate}
     

@@ -13,7 +13,7 @@
         bottom=0.55in,
 ]{geometry}
 
-\usepackage{amsmath,scalefnt}
+\usepackage{amsmath,scalefnt,graphicx}
 
 \renewcommand*{\arraystretch}{.5}
 
@@ -34,6 +34,12 @@
 \titlespacing{\subsection}{-1pt}{-1pt}{-1pt}
 
 \usepackage{listings}
+
+\newcommand{\colvec}[2][.8]{%
+  \scalebox{#1}{%
+    $\begin{bmatrix}#2\end{bmatrix}$%
+  }
+}
 
 %Y hoy yo reza que no empleo ni alma pobre encontrará esta magica negra.
 %This is a custom 'tight' matrix for this cheatsheet. It's ugly.
@@ -287,9 +293,9 @@
             \end{tmatrix1}            
           \end{enumerate}
           
-         \item Interpolation: Estimation of a function value at an intermediate point that lies between precise data points.
+         \item \textbf{Interpolation}: Estimation of a function value at an intermediate point that lies between precise data points.
           \begin{itemize}
-           \item Newton (Divided Difference) Interpolating Polynomials: Connecting two data points with a straight line. The $f_#(x)$ indicates a 
+           \item \textbf{Newton (Divided Difference) Interpolating Polynomials}: Connecting two data points with a straight line. The $f_#(x)$ indicates a 
                  first-order interpolating polynomial. \\
               $N(x) = \sum_{j=0}^{k} a_{j} n_{j}(x)$ \\
               $a_j(x) = f(x_j)$ \\
@@ -326,7 +332,7 @@
               
               Error Estimation in $n^{th}$ order polynomial: $R_n=f_{n+1}(x)-f_n(x)\Rightarrow f_{n+1}(x)=f_n(x)+R_n$
               
-          \item Lagrange Interpolating Polynomials: The Lagrange interpolating polynomial is simply a reformulation of the 
+          \item \textbf{Lagrange Interpolating Polynomials}: The Lagrange interpolating polynomial is simply a reformulation of the 
                 Newton’s polynomial that avoids the computation of divided differences.
                 
                 \begin{math}
@@ -337,9 +343,75 @@
                   f_1(x)=\frac{x-x_1}{x_0-x_1}f(x_0)+\frac{x-x_0}{x_1-x_0}f(x_1)\\
                   f_2(x)=\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}f(x_0) \\+\frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}f(x_1)}+\frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}
                 \end{math}
-
           \end{itemize}
+          \item \textbf{Curve fitting}: Fit the best curve to a discrete data set and obtain estimates for other data points
+          \begin{itemize}
+           \item Statistics:
+           \begin{itemize}
+            \item \textbf{Standard Deviation}: Common measure for spread of a sample (variance = $sqrt^2$): \\
+            $S_y = \sqrt{\frac{\sum(y_i-\bar{y})^2}{n-1}}$ \\
+            \item \textbf{Coefficent of Variation}: spread of data \\
+            $c.v=\frac{S_y}{\bar{y}}*100\%$
+          \end{itemize}
+          
+          \item \textbf{Linear Regression w/ Least Squares}: Fitting a straight line to a set of paired observations. Least squares regression follows. 
+            \begin{itemize}
+              \item $y_i=a_0+a_1x_i+\textbf{e}$ (e not included)
+              \item $e = y_i-a_0-a_1x_i$
+              \item $a_1 = m$, y-int$ = a_0$
+              \item $S_r=\sum_{n}{i=1}e_i^2\\
+                =\sum^{n}_{i=1}(y_{i,measured}-y_{i,model})^2$\\
+                $=\sum^{n}_{i=1}(y_i-a_0-a_1x_i)^2$
+              \item $S_t=\sum(y_i-\bar{y})^2$
+              \item Goodness of fit, r=1 = good: $r^2=\frac{S_t-S_r}{S_t}$
+              \item With this, now: \\
+                $a_1=\frac{n\sum x_iy_i-\sum x_i\sum y_i}{n\sum x_{i}^2-(\sum x_i)^2}$\\
+                $a_0=\bar{y}-a_1\bar{x}$
+            \end{itemize}
+          \item \textbf{Least squares with nonlinear data}: Some engineering data is poorly represented by a straight line. A curve (polynomial) may be better suited to fit the data.
+                      The least squares method can be extended to fit the data to higher order polynomials. 
+            \begin{itemize}
+              \item $y=a_0+a_1x+a_2x^2$ for order-2 data. Below a mth order polynomial needs this problem solved.
+              \item Still minimizing $S_r = \sum_{i=1}^n(y_i-a_0-a_1x_i-a_2x_i^2)^2$\\
+              \colvec{$n            & \sum x_i       & \ldots  & \sum x_i^m     \\%
+                      \sum x_i     & \sum x_i^2     & \ldots  & \sumx_i^{m+1}  \\%
+                      \vdots       & \vdots         & \ddots  & \vdots         \\%
+                      \sum x_i^m   & \sum x_i^{m+1} & \ldots  & \sum x_i^{m+m} $%
+                      }%
+              \colvec{$a_0\\ a_1\\ \vdots \\ a_m$}%
+              $=$
+              \colvec{$\sum y_i\\ \sum x_iy_i \\ \vdots \\ \sum x_i^my_i$}
+            \end{itemize}
+            
+           \item \textbf{Saturation-growth equation}: Same as Power... $y=a_3\frac{x}{b_3+x}$ but with 1/x on the table.
+           
+           \item \textbf{Power equation}: Mostly unmentioned. $y=\alpha_2x^{\beta_2}$. log(alpha) is the intercept, while the slope is beta. Do a table translating x and y into log(x) log(y) then perform
+                                          linear regression on the table like normal, this yields logy=#*logx-# ($log(y)=\beta_2log(x)+log(\alpha_2)$
+          \end{itemize}
+        \item Systems of equations
+          \begin{itemize}
+           \item Transdiagonal systems: bandwidth of three w/ $O(n^3)$ \\
+                 \colvec{   {b_1} & {c_1} & {   } & {   } & { 0 } \\
+                              {a_2} & {b_2} & {c_2} & {   } & {   } \\
+                              {   } & {a_3} & {b_3} & \ddots & {   } \\
+                              {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+                              { 0 } & {   } & {   } & {a_n} & {b_n}\\}%
+                 \colvec{ x_1\\x_2\\x_3\\\vdots\\x_n}%
+                 $=$
+                 \colvec{ r_1\\r_2\\r_3\\\vdots\\r_n} \\
+          \begin{lstlisting}
+DECOMPOSITION
 
+DO  k = 2, n
+    a_k  = a_k / b_k-1
+    b_k  = b_k - a_k c_k-1
+
+END DO
+\end{lstlisting}\\
+            \item transdiagonal systems... do forward / backward substitution.
+            \end{itemize}
+
+          
     \end{enumerate}
     
   \section{Formulas}

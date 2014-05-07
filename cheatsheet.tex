@@ -176,7 +176,70 @@
            I^1_3=\frac{4I^0_3-I^0_2}{3}=0.693253;\vspace{2mm} I^2_3=\frac{16I^1_3-I^1_2}{15}=0.693... \\
          \end{math}
 
+        \item \textbf{Forward Finite-divided-difference Formulas}: Inaccurate formulas for getting an estimate
+          of a derivative. Both are $O(h)$ and $O(h^2)$ respectively.\\
+        \begin{math}
+          f'(x_i)=\frac{f(x_{i+1})-f(x_i)}{h}\\
+          f'(x_i)=\frac{-f(x_{i+2}+4f(x_{i+1})-3f(x_i)}{2h}\\
+        \end{math} \\
+        \begin{math}
+          f''(x_i)=\frac{f(x_{i+2})-2f(x_{i+1})+f(x_i)}{h^2} \\
+          f''(x_i)=-\frac{f(x_{i+3})+4f(x_{i+2})-5f(x_{i+1})+2f(x_i)}{h^2} \\
+        \end{math} \\
+        
+        \item \textbf{Backward Finite-divided-difference Formulas}: Like above with errors. \\
+        \begin{math}
+          f'(x_i)=\frac{f(x_{i})-f(x_{i-1})}{h}\\
+          f'(x_i)=\frac{3f(x_{i+2}-4f(x_{i-1})+f(x_{i-2})}{2h}\\
+        \end{math} \\
+        \begin{math}
+          f''(x_i)=\frac{f(x_i)-2f(x_{i-1})+f(x_{i-2})}{h^2} \\
+          f''(x_i)=-\frac{2f(x_i)-5f(x_{i-1})+4f(x_{i-2})-f(x_{i-3})}{h^2}
+        \end{math}
 
+        \item \textbf{Centered Finite-divided-difference Formulas}: Last $f(x)$ dropped due to size. \\
+        \begin{math}
+          f'(x_i)=\frac{f(x_{i+1})-f(x_{i-1})}{2h}\\
+          f'(x_i)=\frac{-f(x_{i+2}+8f(x_{i+1})-8f(x_{i-1})+f(x_{i-2})}{12h}\\
+        \end{math} \\
+        \begin{math}
+          \frac{f(x_{i+1})-2f(x_i)+f(x_{i-1})}{h^2} \\
+          -\frac{-f(x_{i+2})+16f(x_{i+1})-30f(x_i)+16f(x_{i-1})-f(x_{i-2})}{12h^2}
+        \end{math}
+
+        \item \textbf{Richardson Extrapolation}: There are two ways to improve derivative estimates when employing 
+          finite divided differences: decrease step size or use higher-order formula w/ more points. Richardson 
+          extrapolation is another option which uses two derivative estimates (ea with $O(h^2)$ error) to get a third
+          (w/ $O(h^4)$ error), more accurate, approximation. \\
+          \begin{math}
+            h_2=\frac{h_1}{2};\hspace{10mm} D=\frac{4}{3}D(h_2)-\frac{1}{3}D(h_1)\\
+          \end{math}\\
+          \textbf{Ex:} using Rich's form, estimate first derivative @ x=0.5 w/ centered diff. approx. (e $O(h^2)$)
+          w/ h=0.5 and h=0.25, all w/ previous ex.\\
+          prev ex:
+          \begin{math}
+             f(x)=-0.1x^4-0.15x^3-0.25x+1.2\\
+            D_{h=0.5}(x=0.5)=\frac{0.2-1.2}{1}=-1\\
+            D_{h=0.25}(x=0.5)=\frac{0.6363-1.103}{0.5}=-0.9343\\
+          \end{math}\\
+            The improved estimate is:\\
+          \begin{math}
+            D=\frac{4}{3}(-0.9343)-\frac{1}{3}(-1) = -0.9125\\ 
+            D_{h=0.25}(x=0.5)=\frac{0.6363-1.103}{0.5}=-0.9343\\
+            ...\\
+            D=\frac{4}{3}(-0.9343)-\frac{1}{3}(-1)=-0.9125\\
+          \end{math}
+          
+          \item \textbf{Derivatives of Unequally Spaced Data}: Derivatives before required equally spaced data,
+            moreso for the $O(h^2)$. Without that, we can use Lagrange interpolating polynomials, calculate the 
+            first derivatives of them, and use that for your estimates. You only need three points for the 2nd-order
+            lagrange formula and they do not need to be evenly spaced. Included in the next item is the explanation
+            for Lagrange. Below is the derivative form of a second-order Lagrange interpolating polynomial.\\
+            \begin{math}
+              f'(x)=f(x_{i-1})\frac{2x-x_i-x_{i+1}}{(x_{i-1}-x_i)(x_{i-1}-x_{i+1})} +\\
+              f(x_i)\frac{2x-x_{i-1}-x_{i+1}}{(x_i-x_{i-1})(x_i-x_{i+1})} + \\
+              f(x_{i+1})\frac{2x-x_{i-1}-x_i}{(x_{i+1}-x_{i-1})(x_{i+1}-x_i)}
+            \end{math}
 
     \end{enumerate}
     
